@@ -347,4 +347,38 @@ describe('main-bower-files', function() {
         when.should.throw('absolute path in bower main is not supported');
         done();
     });
+
+    it('should select the expected files from group property in bower.json with depedencies order', function(done) {
+        expect([
+            '/fixtures/multi/multi.js',
+            '/fixtures/multi/multi.css',
+            '/fixtures/simple/simple.js'
+        ]).fromConfig('/_bower_with_group_ordered.json', { group: 'group1' }).when(done);
+    });
+
+    it('should select the expected files from group property in bower.json with group order', function(done) {
+        expect([
+            '/fixtures/simple/simple.js',
+            '/fixtures/multi/multi.js',
+            '/fixtures/multi/multi.css'
+        ]).fromConfig('/_bower_with_group_ordered.json', { group: 'group1', order: 'group' }).when(done);
+    });
+
+    it('should select all files except those listed in the group property in bower.json with depedencies order', function(done) {
+        expect([
+            '/fixtures/decoy/decoy.js',
+            '/fixtures/deepPaths/lib/deeppaths.js',
+            '/fixtures/hasPackageNoBower/hasPackageNoBower.js',
+            '/fixtures/overwritten/overwritten.js'
+        ]).fromConfig('/_bower_with_group_ordered.json', { group: '!group1', order: 'group' }).when(done);
+    });
+
+    it('should select the expected files from group property in bower.json with first group order', function(done) {
+        expect([
+            '/fixtures/simple/simple.js',
+            '/fixtures/multi/multi.js',
+            '/fixtures/multi/multi.css',
+            '/fixtures/overwritten/overwritten.js',
+        ]).fromConfig('/_bower_with_group_ordered.json', { group: ['group1', 'group2'], order: 'group' }).when(done);
+    });
 });

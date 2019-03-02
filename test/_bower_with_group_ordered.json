@@ -1,0 +1,16 @@
+{
+    "dependencies": {
+        "decoy": "*",
+        "deepPaths":"*",
+        "hasPackageNoBower": "*",
+        "ignore": "*",
+        "multi": "*",
+        "overwritten": "*",
+        "simple": "*"
+    },
+    "group": {
+        "group1": [ "simple", "multi" ],
+        "group2": [ "overwritten" ],
+        "containDepsError": [ "simple", "nonExistingModule" ]
+    }
+}
